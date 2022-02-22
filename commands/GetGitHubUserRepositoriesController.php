@@ -104,8 +104,7 @@ class GetGithubUserRepositoriesController extends Controller
                 'github_user_id'    => $githubUser->id,
                 'url'               => $repository['html_url'],
                 'full_name'         => $repository['full_name'],
-                // прибавим 3часа(3600сек * 3), чтобы отобразить время по МСК
-                'updated_timestamp' => $date->getTimestamp() + 3600 * 3,
+                'updated_timestamp' => $date->getTimestamp(),
             ];
         }
 

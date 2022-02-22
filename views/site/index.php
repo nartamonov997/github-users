@@ -38,6 +38,7 @@ $this->title = 'My Yii Application';
                 <p>Репозитории отсутствуют.</p>
               <?php } ?>
                 <p>Дата, когда мы последний раз обновляли информацию по репозиториям(МСК): <?=($dateUpdateUserRepositories) ? $dateUpdateUserRepositories : 'отсутствует'?></p>
+                <p><a href="<?=Url::toRoute(['/', 'update' => 1]);?>">Обновить список репозиториев</a></p>
             </div>  
         </div>
 
