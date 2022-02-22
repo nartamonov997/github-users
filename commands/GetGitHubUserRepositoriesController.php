@@ -12,6 +12,7 @@ use yii\console\ExitCode;
 use app\models\GithubUser;
 use app\models\GithubRepository;
 use yii\helpers\Json;
+use Yii;
 
 /**
  * Получить репозитории пользоваталей
@@ -91,7 +92,7 @@ class GetGithubUserRepositoriesController extends Controller
         $json = curl_exec($curl);
         $curlhttpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
         if ($curlhttpCode != 200) {
-            \Yii::warning('Curl код ответа с ошибкой, $curlhttpCode: ' . $curlhttpCode, __METHOD__);
+            Yii::warning('Curl код ответа с ошибкой, $curlhttpCode: ' . $curlhttpCode, __METHOD__);
             return [];
         }
 
@@ -103,7 +104,8 @@ class GetGithubUserRepositoriesController extends Controller
                 'github_user_id'    => $githubUser->id,
                 'url'               => $repository['html_url'],
                 'full_name'         => $repository['full_name'],
-                'updated_timestamp' => $date->getTimestamp(),
+                // прибавим 3часа(3600сек * 3), чтобы отобразить время по МСК
+                'updated_timestamp' => $date->getTimestamp() + 3600 * 3,
             ];
         }
 
@@ -129,9 +131,11 @@ class GetGithubUserRepositoriesController extends Controller
                 $repoDb->updated = date('Y-m-d H:i:s', $repository['updated_timestamp']);
                 if (!$repoDb->save()) {
                     $errors = $repoDb->getErrors();
-                    \Yii::warning('Не удалось сохранить репозиторий, errors: ' . json_encode($errors), __METHOD__);
+                    Yii::warning('Не удалось сохранить репозиторий, errors: ' . json_encode($errors), __METHOD__);
                 }
             }
+            
+            Yii::$app->cache->set('timestampWhenUpdatedUserRepositories', time());
         });
     }
 }

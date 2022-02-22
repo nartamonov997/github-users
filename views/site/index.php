@@ -25,7 +25,7 @@ $this->title = 'My Yii Application';
               <table class="repository_list">
                 <tr>
                     <th>Репозиторий</th>
-                    <th>Дата обновления(UTC)</th>
+                    <th>Дата обновления(МСК)</th>
                 </tr>
                 <?php foreach ($githubRepositories as $githubRepository) { ?>
                 <tr>
@@ -37,6 +37,7 @@ $this->title = 'My Yii Application';
               <?php } else { ?>
                 <p>Репозитории отсутствуют.</p>
               <?php } ?>
+                <p>Дата, когда мы последний раз обновляли информацию по репозиториям(МСК): <?=($dateUpdateUserRepositories) ? $dateUpdateUserRepositories : 'отсутствует'?></p>
             </div>  
         </div>
 

@@ -63,8 +63,18 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        // дата, когда мы последний раз обновляли информацию по репозиториям 
+        $dateUpdateUserRepositories = Yii::$app->cache->get('timestampWhenUpdatedUserRepositories');
+        if ($dateUpdateUserRepositories) {
+            // прибавим 3часа(3600сек * 3), чтобы отобразить время по МСК
+            $dateUpdateUserRepositories = date('Y-m-d H:i:s', $dateUpdateUserRepositories + 3600 * 3);
+        }
+        
         $githubRepositories = GithubRepository::find()->orderBy('updated DESC')->all();
-        return $this->render('index', ['githubRepositories' => $githubRepositories]);
+        return $this->render('index', [
+            'githubRepositories'         => $githubRepositories, 
+            'dateUpdateUserRepositories' => $dateUpdateUserRepositories]
+        );
     }
 
 }
