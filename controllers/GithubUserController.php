@@ -39,26 +39,11 @@ class GithubUserController extends Controller
      */
     public function actionIndex()
     {
-        /*
-        $searchModel = new GitHubUserSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
-
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);*/
         $dataProvider = new ActiveDataProvider([
             'query' => GithubUser::find(),
-            /*
             'pagination' => [
-                'pageSize' => 50
-            ],
-            'sort' => [
-                'defaultOrder' => [
-                    'id' => SORT_DESC,
-                ]
-            ],
-            */
+                'pageSize' => 20
+            ], 
         ]);
 
         return $this->render('index', [
