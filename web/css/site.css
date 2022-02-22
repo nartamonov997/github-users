@@ -82,3 +82,20 @@ a.desc:after {
 .nav > li > form > button.logout:focus {
     outline: none;
 }
+.repository_list {
+  width: 100%;
+  border: 0;
+  margin-bottom: 40px;
+}
+.repository_list td, .repository_list th {
+  padding: 10px;
+  border: 1px solid #28a745;
+}
+.repository_list tr:nth-child (odd) {
+    background-color: #C9E4F6;
+}
+.repository_list tbody tr:nth-child (even) {
+
+    background-color: #B4DAF2;/* фон четных строк */
+
+  }
