@@ -5,6 +5,8 @@ $db = require __DIR__ . '/db.php';
 
 $config = [
     'id' => 'basic',
+    'name' => 'GitHubUsers',
+    'language' => 'ru-RU',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'aliases' => [
@@ -43,14 +45,22 @@ $config = [
             ],
         ],
         'db' => $db,
-        /*
+        
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
+            'normalizer' => [
+                'class' => 'yii\web\UrlNormalizer',
+                // use temporary redirection instead of permanent for debugging
+                'action' => yii\web\UrlNormalizer::ACTION_REDIRECT_TEMPORARY,
+                'collapseSlashes' => true,
+                'normalizeTrailingSlash' => true,
+            ],
             'rules' => [
+                'users' => 'github-user/index',
             ],
         ],
-        */
+        
     ],
     'params' => $params,
 ];
